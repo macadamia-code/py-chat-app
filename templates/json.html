@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>JSONチャット</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>JSONチャット</h1>
+
+  <div id="form-area">
+    <form id="chat-form">
+      <input type="text" id="username" placeholder="名前" required>
+      <input type="text" id="content" placeholder="メッセージ" required>
+      <button type="submit">送信</button>
+    </form>
+    <button id="reload-btn" type="button">リロード</button>
+  </div>
+
+  <div id="chat"></div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

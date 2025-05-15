@@ -1,0 +1,14 @@
+# Pythonバイトコード
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 仮想環境（任意の名前に応じて追加）
+venv/
+
+# エディタやOSの一時ファイル
+*.swp
+*.swo
+*.DS_Store
+*.vscode/

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>HTMLチャット</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>HTMLチャット</h1>
+
+  <div id="form-area">
+    <form method="POST" action="/" id="chat-form">
+      <input type="text" name="username" placeholder="名前" required>
+      <input type="text" name="content" placeholder="メッセージ" required>
+      <button type="submit">送信</button>
+    </form>
+    <form method="GET" action="/">
+      <button type="submit">リロード</button>
+    </form>
+  </div>
+
+  <div id="chat">
+    {% for msg in messages %}
+      <p>{{ msg.created_at.astimezone().strftime('%Y/%m/%d %H:%M:%S') }} <b>{{ msg.username }}</b>: {{ msg.content }}</p>
+    {% endfor %}
+  </div>
+</body>
+</html>

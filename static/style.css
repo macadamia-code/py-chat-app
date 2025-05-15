@@ -1,0 +1,23 @@
+body {
+    font-family: sans-serif;
+    padding: 2rem;
+  }
+  
+#chat {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    overflow: visible;
+    max-height: none;
+}
+
+#form-area {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+  
+#chat-form, #form-area > form {
+    display: flex;
+    gap: 0.5rem;
+}
