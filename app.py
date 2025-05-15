@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template, redirect
+import psycopg2
 from db import get_connection
 from dotenv import load_dotenv
 import os
