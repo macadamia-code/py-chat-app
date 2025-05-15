@@ -3,12 +3,13 @@ from db import get_connection
 from dotenv import load_dotenv
 import os
 import psycopg2.extras
-
+from flasgger import Swagger
 from datetime import datetime
 
 load_dotenv()
 
 app = Flask(__name__)
+swagger = Swagger(app)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # 静的ファイルとテンプレートの設定はデフォルトのままでOK
@@ -42,6 +43,24 @@ def json_page():
 
 @app.route('/api/get_messages')
 def get_messages():
+    """
+    メッセージの取得
+    ---
+    parameters:
+      - name: after
+        in: query
+        type: string
+        format: date-time
+        required: false
+        description: この日時以降のメッセージを取得
+    responses:
+      200:
+        description: メッセージ一覧の取得成功
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/Message'
+    """
     after = request.args.get('after')
     query = "SELECT * FROM messages"
     params = []
@@ -63,10 +82,34 @@ def get_messages():
 
 @app.route('/api/send_message', methods=['POST'])
 def send_message():
+    """
+    メッセージの投稿
+    ---
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+            content:
+              type: string
+            after:
+              type: string
+              format: date-time
+    responses:
+      201:
+        description: 新着メッセージの配列
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/Message'
+    """
     data = request.get_json()
     username = data['username']
     content = data['content']
-    after = data.get('after')
 
     conn = get_connection()
     cur = conn.cursor()
@@ -84,3 +127,28 @@ def sample_page():
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 3000))
     app.run(host='0.0.0.0', port=port, debug=True)
+
+swagger.template['definitions'] = {
+    'Message': {
+        'type': 'object',
+        'properties': {
+            'id': {
+                'type': 'integer',
+                'example': 1
+            },
+            'username': {
+                'type': 'string',
+                'example': 'Taro'
+            },
+            'content': {
+                'type': 'string',
+                'example': 'こんにちは'
+            },
+            'created_at': {
+                'type': 'string',
+                'format': 'date-time',
+                'example': '2024-05-15T11:00:00Z'
+            }
+        }
+    }
+}
