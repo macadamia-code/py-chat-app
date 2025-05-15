@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: Chat API
+  version: 1.0.0
+  description: Flaskによるシンプルなチャット用のAPI
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /api/get_messages:
+    get:
+      summary: メッセージの取得
+      description: 指定された日時以降のメッセージを取得します。
+      parameters:
+        - name: after
+          in: query
+          required: false
+          description: この日時以降のメッセージを取得します（ISO8601形式）
+          schema:
+            type: string
+            format: date-time
+      responses:
+        "200":
+          description: メッセージ一覧の取得成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Message"
+
+  /api/send_message:
+    post:
+      summary: メッセージの投稿
+      description: 新しいメッセージを投稿し、指定日時以降のメッセージ一覧を返します。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "Taro"
+                content:
+                  type: string
+                  example: "こんにちは！"
+                after:
+                  type: string
+                  format: date-time
+                  description: この日時以降のメッセージを取得
+      responses:
+        "201":
+          description: 新着メッセージの配列
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Message"
+
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: "Taro"
+        content:
+          type: string
+          example: "こんにちは！"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-05-15T11:00:00Z"
