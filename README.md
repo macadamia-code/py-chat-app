@@ -1,15 +1,15 @@
-# 💬 シンプルなチャットアプリ（HTML 版 & JSON API 版）
+# シンプルなチャットアプリ（HTML 版 & Web API 版）
 
-- **(1) HTML テンプレート方式**：毎回サーバーが HTML を組み立てて返します。
-- **(2) JSON API 方式**：初回に HTML を取得し、以降は JSON API でメッセージを送受信します。
+- **(1) HTML テンプレート方式**：毎回サーバーが HTML を組み立てて返す。
+- **(2) Web API 方式**：初回に HTML を取得し、以降は Web API でメッセージを送受信する。
 
 ---
 
 # 🛠️ 技術仕様
 
-Flask 3.1.0
-python-dotenv 1.1.0
-psycopg2-binary 2.9.10
+- Flask 3.1.0
+- python-dotenv 1.1.0
+- psycopg2-binary 2.9.10
 
 ---
 
@@ -24,7 +24,8 @@ psycopg2-binary 2.9.10
 │   ├── script.js        # JavaScriptプログラム
 │   └── styles.css       # CSSスタイルシート
 ├── templates            # HTMLテンプレート格納ディレクトリ
-│   └── index.html       # メインページのテンプレート
+│   ├── index.html       # HTML版のメインページ
+│   └── json.html        # Web API版のメインページ
 ├── .env                 # 環境変数
 ├── init.sql             # DB環境構築のためのSQL
 └── requirements.txt     # 要インストールのパッケージ一覧
@@ -70,7 +71,7 @@ cd chat-app
 3. チャットアプリを GitHub から取得する。
 
 ```shell
-git clone https://github.com/kaswister0116/todo_app.git .
+git clone https://github.com/macadamia-code/py-chat-app.git .
 ```
 
 4. 必要なパッケージをインストールする。
