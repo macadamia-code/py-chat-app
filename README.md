@@ -74,23 +74,31 @@ cd chat-app
 git clone https://github.com/macadamia-code/py-chat-app.git .
 ```
 
-4. 必要なパッケージをインストールする。
+4. 仮想環境を作成する。
 
 ```shell
-# 仮想環境を作成
 python -m venv venv
+```
 
-# 仮想環境を有効化
+5. 仮想環境を有効化する。
+
+```shell
 source venv/Scripts/activate
+```
 
-# pipのアップグレード
+6. pip をアップグレードする。
+
+```shell
 python.exe -m pip install --upgrade pip
+```
 
-# ライブラリインストール
+7. 必要なパッケージをインストールする。
+
+```shell
 pip install -r requirements.txt
 ```
 
-5. チャットアプリを起動する。
+8. チャットアプリを起動する。
 
 ```shell
 python app.py
